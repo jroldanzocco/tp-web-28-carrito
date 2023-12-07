@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.33920.266
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalogo.Dominio", "Catalogo.Dominio\Catalogo.Dominio.csproj", "{53794531-32B9-412A-B253-3BF5E9051D71}"
 EndProject
@@ -10,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalogo.UI", "Catalogo.UI\Catalogo.UI.csproj", "{31192A8F-47E6-45F5-AFA7-C175A73CB5A0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalogo.Common", "Catalogo.Common\Catalogo.Common.csproj", "{835A2299-7D65-44C8-B1BF-31DC92CEA588}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalogo.UI.WebForm", "Catalogo.UI.WebForm\Catalogo.UI.WebForm.csproj", "{965EF94F-9633-46D6-A155-1C1B1B65D027}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +33,6 @@ Global
 		{835A2299-7D65-44C8-B1BF-31DC92CEA588}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{835A2299-7D65-44C8-B1BF-31DC92CEA588}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{835A2299-7D65-44C8-B1BF-31DC92CEA588}.Release|Any CPU.Build.0 = Release|Any CPU
-		{965EF94F-9633-46D6-A155-1C1B1B65D027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{965EF94F-9633-46D6-A155-1C1B1B65D027}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{965EF94F-9633-46D6-A155-1C1B1B65D027}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{965EF94F-9633-46D6-A155-1C1B1B65D027}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
