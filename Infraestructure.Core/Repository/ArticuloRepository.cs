@@ -22,7 +22,7 @@ namespace Infraestructure.Core.Repository
             try
             {
                 var command = CrearComando("INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio) " +
-                                           "VALUES (@codigo,@nombre,@descripcion,@idMarca,@idCategoria,@precio);");
+                                           "VALUES (@codigo,@nombre,@descripcion,@idMarca,@idCategoria,@precio)");
 
                 command.Parameters.AddWithValue("@codigo", entity.Codigo);
                 command.Parameters.AddWithValue("@nombre", entity.Nombre);
@@ -127,6 +127,7 @@ namespace Infraestructure.Core.Repository
                                            "IdMarca = @idMarca, IdCategoria = @idCategoria, Precio = @precio " +
                                            "WHERE ID = @id");
 
+                command.Parameters.AddWithValue("@id", entity.Id);
                 command.Parameters.AddWithValue("@codigo", entity.Codigo);
                 command.Parameters.AddWithValue("@nombre", entity.Nombre);
                 command.Parameters.AddWithValue("@descripcion", entity.Descripcion);
