@@ -121,7 +121,8 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="Default.aspx" />
+    <Content Include="css\homeStyles.css" />
+    <Content Include="Home.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -202,12 +203,12 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -248,6 +249,20 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Catalogo.Common\Catalogo.Common.csproj">
+      <Project>{835A2299-7D65-44C8-B1BF-31DC92CEA588}</Project>
+      <Name>Catalogo.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Catalogo.Dominio\Catalogo.Dominio.csproj">
+      <Project>{53794531-32B9-412A-B253-3BF5E9051D71}</Project>
+      <Name>Catalogo.Dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infraestructure.Core\Infraestructure.Core.csproj">
+      <Project>{D5BBEEFF-7A06-432E-991D-FF9D680B2992}</Project>
+      <Name>Infraestructure.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

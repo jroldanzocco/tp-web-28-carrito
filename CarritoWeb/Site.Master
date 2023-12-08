@@ -14,7 +14,8 @@
 
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-
+    <link rel="stylesheet" href="~/css/homeStyles.css" />
+    <script src="Scripts/jquery-3.4.1.js"></script>
 </head>
 <body>
     <form runat="server">

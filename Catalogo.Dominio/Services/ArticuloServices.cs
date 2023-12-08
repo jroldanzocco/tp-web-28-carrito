@@ -68,13 +68,14 @@ namespace Catalogo.Dominio.Services
                 using (var connection = _unitOfWork.Create())
                 {
                     List<string> images = connection.Repositories.ImagenRepository.GetByIdArticulo(idArticulo);
-
+                    if (images.Count == 0)
+                        images.Add("");
                     return images;
                 }
                 }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new List<string> { "Imagen no encontrada" };
+               throw ex;
             }
         }
 
