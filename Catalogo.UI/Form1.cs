@@ -9,7 +9,11 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Catalogo.Dominio;
+using Catalogo.Dominio.DTO.Articulo;
+using Catalogo.Dominio.Services;
 using Catalogo.Negocio;
+using Infraestructure.Core.UnitOfWork;
+using Infraestructure.Core.UnitOfWork.Interface;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
@@ -17,31 +21,34 @@ namespace Catalogo.UI
 {
     public partial class frmArticulos : Form
     {
+        private ArticuloServices _artPrueba;
         private List<Articulo> listaArticulo;
         public frmArticulos()
         {
+            _artPrueba = new ArticuloServices(new UnitOfWork());
             InitializeComponent();
         }
         private void Form1_Load_1(object sender, EventArgs e)
         {
             timer1.Enabled = true;
             cargar();
+            cboCampo.Items.Add("Codigo");
             cboCampo.Items.Add("Nombre");
             cboCampo.Items.Add("Marca");
             cboCampo.Items.Add("Categoria");
             cboCampo.Items.Add("Precio");
 
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
-
-            cbxImagen.DataSource = articuloNegocio.Listar();
+            
+            cbxImagen.DataSource = _artPrueba.GetAll();
         }
         private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
         {
 
             if (dgvArticulos.CurrentRow != null)
             {
-                Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-                CargarImagen(seleccionado.Imagen.ImagenUrl);
+                ArticuloDto seleccionado = (ArticuloDto)dgvArticulos.CurrentRow.DataBoundItem;
+                CargarImagen(seleccionado.Imagen[0]);
             }
         }
         private void cbxImagen_SelectedIndexChanged(object sender, EventArgs e)
@@ -64,11 +71,14 @@ namespace Catalogo.UI
         }
         private void cargar()
         {
+            
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
             try
             {
-                listaArticulo = articuloNegocio.Listar();
-                dgvArticulos.DataSource = listaArticulo;
+                
+                var listaArt = _artPrueba.GetAll();
+                //listaArticulo = articuloNegocio.Listar();
+                dgvArticulos.DataSource = listaArt;
                 ocultarColumnas();
                 dgvArticulos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 int cantFilas = dgvArticulos.Rows.Count;
@@ -81,7 +91,9 @@ namespace Catalogo.UI
         private void ocultarColumnas()
         {
             dgvArticulos.Columns["id"].Visible = false;
-            dgvArticulos.Columns["Imagen"].Visible = false;
+            //dgvArticulos.Columns["Imagen"].Visible = false;
+            dgvArticulos.Columns["idMarca"].Visible = false;
+            dgvArticulos.Columns["idCategoria"].Visible = false;
         }
         private bool validarFiltro()
         {
@@ -337,14 +349,14 @@ namespace Catalogo.UI
         }
         private void btnImagen_Click(object sender, EventArgs e)
         {
-            Articulo seleccionado;
+            ArticuloDto seleccionado;
             if (dgvArticulos.CurrentCell is null)
             {
                 MessageBox.Show("Debe Seleccionar un Artículo");
             }
             else
             {
-                seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                seleccionado = (ArticuloDto)dgvArticulos.CurrentRow.DataBoundItem;
                 frmImagen cambiarImagen = new frmImagen(seleccionado);
                 cambiarImagen.ShowDialog();
                 cargar();

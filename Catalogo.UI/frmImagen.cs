@@ -1,5 +1,8 @@
 ﻿using Catalogo.Dominio;
+using Catalogo.Dominio.DTO.Articulo;
+using Catalogo.Dominio.Services;
 using Catalogo.Negocio;
+using Infraestructure.Core.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,16 +17,18 @@ namespace Catalogo.UI
 {
     public partial class frmImagen : Form
     {
-        private Articulo articulo = null;
+        private ArticuloDto articulo = null;
+        private ArticuloServices _artService;
         public frmImagen()
         {
+            _artService = new ArticuloServices(new UnitOfWork());
             InitializeComponent();
         }
 
         private void frmImagen_Load(object sender, EventArgs e)
         {
         }
-        public frmImagen(Articulo articulo)
+        public frmImagen(ArticuloDto articulo)
         {
             InitializeComponent();
             this.articulo = articulo;
@@ -32,7 +37,7 @@ namespace Catalogo.UI
             ImagenNegocio imagenes = new ImagenNegocio();
             try
             {
-                cbxImagen.DataSource = imagenes.Listar(articulo);
+                //cbxImagen.DataSource = _artService.get(articulo);
             }
             catch (Exception ex)
             {

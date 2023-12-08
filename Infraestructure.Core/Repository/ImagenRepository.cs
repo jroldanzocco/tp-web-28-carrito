@@ -104,6 +104,33 @@ namespace Infraestructure.Core.Repository
             return listaImagenes;
         }
 
+        public List<string> GetByIdArticulo(int idArticulo)
+        {
+            var listaImagenes = new List<string>();
+
+            try
+            {
+                var command = CrearComando("SELECT ImagenUrl FROM IMAGENES WHERE idArticulo = @idArticulo");
+                command.Parameters.AddWithValue("@idArticulo", idArticulo);
+
+
+                using (var lector = command.ExecuteReader())
+                {
+                    while (lector.Read())
+                    {
+                        listaImagenes.Add(
+                        lector["ImagenUrl"].ToString()
+                        );
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return listaImagenes;
+        }
+
         public void Update(ImagenEntity entity)
         {
             try

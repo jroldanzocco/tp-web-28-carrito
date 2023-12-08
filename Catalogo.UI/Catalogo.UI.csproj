@@ -174,6 +174,10 @@
       <Project>{6574E9E9-6C2F-4BF9-8270-4F928BE32FC7}</Project>
       <Name>Catalogo.Negocio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infraestructure.Core\Infraestructure.Core.csproj">
+      <Project>{D5BBEEFF-7A06-432E-991D-FF9D680B2992}</Project>
+      <Name>Infraestructure.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
