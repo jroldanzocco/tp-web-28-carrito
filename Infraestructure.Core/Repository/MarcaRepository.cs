@@ -80,8 +80,8 @@ namespace Infraestructure.Core.Repository
 
             try
             {
-                var command = CrearComando("SELECT Id, Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio " +
-                                           "FROM articulos");
+                var command = CrearComando("SELECT Id, Descripcion " +
+                                           "FROM Marcas");
 
                 using (var lector = command.ExecuteReader())
                 {

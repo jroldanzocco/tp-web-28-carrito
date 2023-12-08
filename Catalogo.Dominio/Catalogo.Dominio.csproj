@@ -46,11 +46,19 @@
     <Compile Include="Categoria.cs" />
     <Compile Include="DTO\Articulo\AddArticuloDto.cs" />
     <Compile Include="DTO\Articulo\ArticuloDto.cs" />
+    <Compile Include="DTO\Categoria\AddCategoriaDto.cs" />
+    <Compile Include="DTO\Categoria\CategoriaDto.cs" />
+    <Compile Include="DTO\Marca\AddMarcaDto.cs" />
+    <Compile Include="DTO\Marca\MarcaDto.cs" />
     <Compile Include="Imagen.cs" />
     <Compile Include="Marca.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ArticuloServices.cs" />
+    <Compile Include="Services\CategoriaServices.cs" />
     <Compile Include="Services\Interface\IArticuloServices.cs" />
+    <Compile Include="Services\Interface\ICategoriaServices.cs" />
+    <Compile Include="Services\Interface\IMarcaServices.cs" />
+    <Compile Include="Services\MarcaServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infraestructure.Core\Infraestructure.Core.csproj">
@@ -63,9 +71,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DTO\Categoria\" />
     <Folder Include="DTO\Imagen\" />
-    <Folder Include="DTO\Marca\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
