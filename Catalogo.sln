@@ -5,8 +5,6 @@ VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalogo.Negocio", "Catalogo.Negocio\Catalogo.Negocio.csproj", "{6574E9E9-6C2F-4BF9-8270-4F928BE32FC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalogo.UI", "Catalogo.UI\Catalogo.UI.csproj", "{31192A8F-47E6-45F5-AFA7-C175A73CB5A0}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalogo.Common", "Catalogo.Common\Catalogo.Common.csproj", "{835A2299-7D65-44C8-B1BF-31DC92CEA588}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infraestructure.Core", "Infraestructure.Core\Infraestructure.Core.csproj", "{D5BBEEFF-7A06-432E-991D-FF9D680B2992}"
@@ -27,10 +25,6 @@ Global
 		{6574E9E9-6C2F-4BF9-8270-4F928BE32FC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6574E9E9-6C2F-4BF9-8270-4F928BE32FC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6574E9E9-6C2F-4BF9-8270-4F928BE32FC7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{31192A8F-47E6-45F5-AFA7-C175A73CB5A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{31192A8F-47E6-45F5-AFA7-C175A73CB5A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{31192A8F-47E6-45F5-AFA7-C175A73CB5A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{31192A8F-47E6-45F5-AFA7-C175A73CB5A0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{835A2299-7D65-44C8-B1BF-31DC92CEA588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{835A2299-7D65-44C8-B1BF-31DC92CEA588}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{835A2299-7D65-44C8-B1BF-31DC92CEA588}.Release|Any CPU.ActiveCfg = Release|Any CPU

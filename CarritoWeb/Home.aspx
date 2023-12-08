@@ -12,7 +12,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-img-actions">
-                                    <div id="carouselExample<%# Container.ItemIndex %>" class="carousel slide" data-ride="carousel">
+                                    <div id="carouselExample<%# Container.ItemIndex %>" class="carousel slide" data-ride="carousel" data-interval="false">
                                         <div class="carousel-inner">
                                             <asp:Repeater ID="repImagenes" runat="server" DataSource='<%# Eval("Imagen") %>'>
                                                 <ItemTemplate>
@@ -22,19 +22,27 @@
                                                 </ItemTemplate>
                                             </asp:Repeater>
                                         </div>
+                                        <!-- Controles carrusel -->
+                                        <button class="carousel-control-prev" type="button" onclick="prevSlide(<%# Container.ItemIndex %>)">
+                                            <img src="Assets/flecha.png" alt="Anterior" class="carousel-control-next-icon rotate-180" />
+                                        </button>
+                                        <button class="carousel-control-next" type="button" onclick="nextSlide(<%# Container.ItemIndex %>)">
+                                            <img src="Assets/flecha.png" alt="Siguiente" class="carousel-control-next-icon" />
+                                        </button>
+
                                     </div>
                                 </div>
 
                                 <div class="card-body bg-light text-center">
                                     <div class="mb-2">
                                         <h6 class="font-weight-semibold mb-2">
-                                            <a href="#" class="text-default mb-2" data-abc="true"><%# Eval("Descripcion") %></a>
+                                            <a href="<%# "DetalleArticulo.aspx?id=" + Eval("Id") %>" class="text-default mb-2" data-abc="true"><%# Eval("Nombre") %></a>
                                         </h6>
 
                                         <a href="#" class="text-muted" data-abc="true"><%# Eval("Categoria") %></a>
                                     </div>
 
-                                    <h3 class="mb-0 font-weight-semibold">$<%# Eval("Precio")%></h3>
+                                    <h3 class="mb-0 font-weight-semibold">$<%# (Convert.ToDecimal(Eval("Precio"))).ToString("0.00")%></h3>
 
                                     <div>
                                         <i class="fa fa-star star"></i>
@@ -65,5 +73,13 @@
 
         </div>
     </div>
+    <script>
+        function prevSlide(index) {
+            $('#carouselExample' + index).carousel('prev');
+        }
 
+        function nextSlide(index) {
+            $('#carouselExample' + index).carousel('next');
+        }
+    </script>
 </asp:Content>

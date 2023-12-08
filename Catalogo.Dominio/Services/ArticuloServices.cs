@@ -49,7 +49,24 @@ namespace Catalogo.Dominio.Services
 
         public ArticuloDto GetById(int id)
         {
-            throw new NotImplementedException();
+            using (var connection = _unitOfWork.Create())
+            {
+                ArticuloEntity aux = connection.Repositories.ArticuloRepository.Get(id);
+
+                var articulo = new ArticuloDto
+                {
+                    Id = aux.Id,
+                    Codigo = aux.Codigo ?? "",
+                    Nombre = aux.Nombre ?? "",
+                    Descripcion = aux.Descripcion ?? "",
+                    Marca = getMarca(aux.IdMarca),
+                    Categoria = getCategoria(aux.IdCategoria),
+                    Imagen = GetImages(aux.Id),
+                    Precio = aux.Precio
+                };
+
+                return articulo;
+            }
         }
 
         public void Insert(AddArticuloDto articulo)
