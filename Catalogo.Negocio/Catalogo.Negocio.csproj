@@ -50,9 +50,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Infraestructure.Entity\Infraestructure.Entity.csproj">
-      <Project>{8C4E4104-F96C-4DF5-A6FA-A550CEF1E941}</Project>
-      <Name>Infraestructure.Entity</Name>
+    <ProjectReference Include="..\Catalogo.Dominio\Catalogo.Dominio.csproj">
+      <Project>{53794531-32b9-412a-b253-3bf5e9051d71}</Project>
+      <Name>Catalogo.Dominio</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
