@@ -1,8 +1,12 @@
-﻿namespace Infraestructure.Core.UnitOfWork.Interface
+﻿using Infraestructure.Core.Repository.Interface;
+
+namespace Infraestructure.Core.UnitOfWork.Interface
 {
     public interface IUnitOfWorkRepository
     {
-        //IProveedorRepository ProveedorRepository { get; }
-        //ICategoriaIvaRepository CategoriaIvaRepository { get; }
+        IArticuloRepository ArticuloRepository { get;} 
+        ICategoriaRepository CategoriaRepository { get; } 
+        IImagenRepository ImagenRepository { get;}
+        IMarcaRepository MarcaRepository { get;}
     }
 }
