@@ -30,12 +30,32 @@ namespace CarritoWeb
                     ddlCategorias.Items.Add(categoria.Descripcion);
                 }
 
+                string id = Request.QueryString["id"] != null ? Request.QueryString["id"] : "";
+
+                if (id != "")
+                {
+                    int.TryParse(id, out int idVal);
+                    ArticuloDto aux = _articuloServices.GetById(idVal);
+
+                    txtCodigo.Text = aux.Codigo;
+                    txtNombre.Text = aux.Nombre;
+                    txtDescripcion.Text = aux.Descripcion;
+                    txtPrecio.Text = aux.Precio.ToString("0.00");
+
+                    lblTitulo.Text = "Editar Articulo";
+                }
+                else
+                {
+                    lblTitulo.Text = "Agregar Articulo";
+                }
+
+
             }
         }
 
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
-            var auxArt = new AddArticuloDto();
+            var auxArt = new ArticuloDto();
 
             auxArt.Nombre = txtNombre.Text.ToString();
             auxArt.Codigo = txtCodigo.Text.ToString();
@@ -57,7 +77,19 @@ namespace CarritoWeb
             }
             else
             {
-                _articuloServices.Insert(auxArt);
+                string id = Request.QueryString["id"];
+                if (id == null)
+                {
+                    _articuloServices.Insert(auxArt);
+                }
+                else
+                {
+                    int.TryParse(id, out int idVal);
+                    auxArt.Id = idVal;
+                    _articuloServices.Update(auxArt);
+                }
+
+
                 Response.Redirect("Home.aspx");
             }
         }

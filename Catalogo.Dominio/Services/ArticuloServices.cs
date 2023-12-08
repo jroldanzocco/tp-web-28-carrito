@@ -69,15 +69,7 @@ namespace Catalogo.Dominio.Services
             }
         }
 
-        public void Insert(AddArticuloDto articulo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(ArticuloDto articulo)
-        {
-            throw new NotImplementedException();
-        }
+       
         private List<string> GetImages(int idArticulo)
         {
             try
@@ -127,6 +119,49 @@ namespace Catalogo.Dominio.Services
             catch (Exception)
             {
                 return "Categoria no encontrada";
+            }
+        }
+
+        public void Insert(ArticuloDto articulo)
+        {
+            using (var connection = _unitOfWork.Create())
+            {
+                ArticuloEntity art = new ArticuloEntity
+                {
+                    Nombre = articulo.Nombre,
+                    Codigo = articulo.Codigo,
+                    Descripcion = articulo.Descripcion,
+                    IdMarca = articulo.idMarca,
+                    IdCategoria = articulo.idCategoria,
+                    Precio = articulo.Precio
+                };
+
+
+                connection.Repositories.ArticuloRepository.Add(art);
+
+                connection.SaveChanges();
+            }
+        }
+
+        public void Update(ArticuloDto articulo)
+        {
+            using (var connection = _unitOfWork.Create())
+            {
+                ArticuloEntity art = new ArticuloEntity
+                {
+                    Id = articulo.Id,
+                    Nombre = articulo.Nombre,
+                    Codigo = articulo.Codigo,
+                    Descripcion = articulo.Descripcion,
+                    IdMarca = articulo.idMarca,
+                    IdCategoria = articulo.idCategoria,
+                    Precio = articulo.Precio
+                };
+
+
+                connection.Repositories.ArticuloRepository.Update(art);
+
+                connection.SaveChanges();
             }
         }
         #endregion

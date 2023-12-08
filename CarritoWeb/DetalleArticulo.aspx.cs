@@ -48,5 +48,12 @@ namespace CarritoWeb
 
             return imageUrl;
         }
+
+        protected void btnEditarArticulo_Click(object sender, EventArgs e)
+        {
+            string id = ((Button)sender).CommandArgument;
+
+            Response.Redirect("Articulo.aspx?id=" + id);
+        }
     }
 }

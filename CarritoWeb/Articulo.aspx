@@ -3,7 +3,7 @@
      <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6 bg-light p-4 rounded">
-            <h2 class="text-center mb-4 font-weight-bold">Agregar Artículo</h2>
+            <h2 class="text-center mb-4 font-weight-bold"><asp:Label runat="server" ID="lblTitulo"></asp:Label></h2>
 
             <div class="mb-3">
                 <label for="txtCodigo" class="form-label">Código</label>
@@ -37,7 +37,7 @@
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPrecio"
                 ErrorMessage="El precio es obligatorio" ForeColor="Red" ValidationGroup="agregar" Display="Dynamic"></asp:RequiredFieldValidator>
                                 <asp:RegularExpressionValidator ID="revNumeros" runat="server" ControlToValidate="txtPrecio"
-                ErrorMessage="El numero es invalido" ValidationExpression="^[0-9]+(\.[0-9]{1,2})?$" ForeColor="Red" ValidationGroup="agregar" Display="Dynamic"></asp:RegularExpressionValidator>
+                ErrorMessage="El numero es invalido" ValidationExpression="^[0-9]+(\,[0-9]{1,2})?$" ForeColor="Red" ValidationGroup="agregar" Display="Dynamic"></asp:RegularExpressionValidator>
                 <label runat="server" id="lblPrecio" style="color:red;"></label>
             </div>
             <div class="mb-3 text-center">

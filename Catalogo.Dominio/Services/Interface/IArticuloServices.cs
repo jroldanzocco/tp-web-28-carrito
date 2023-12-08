@@ -11,7 +11,7 @@ namespace Catalogo.Dominio.Services.Interface
     {
         List<ArticuloDto> GetAll();
         ArticuloDto GetById(int id);
-        void Insert(AddArticuloDto articulo);
+        void Insert(ArticuloDto articulo);
         void Update(ArticuloDto articulo);
     }
 }

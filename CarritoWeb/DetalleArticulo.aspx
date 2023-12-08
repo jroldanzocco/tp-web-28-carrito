@@ -8,7 +8,7 @@
             <section class="py-5">
                 <div class="container px-4 px-lg-5 my-5">
                     <button class="btn btn-danger float-end m-2">Eliminar</button>
-                        <button class="btn btn-secondary float-end mt-2">Editar</button>
+                    <asp:Button runat="server" CssClass="btn btn-secondary float-end mt-2" Text="Editar" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" ID="btnEditarArticulo" OnClick="btnEditarArticulo_Click"/>
                     <div class="container px-4 px-lg-5 my-5 bg-white p-4 rounded shadow-sm">
                     <div class="row gx-4 gx-lg-5 align-items-center">
                         <div class="col-md-6">
