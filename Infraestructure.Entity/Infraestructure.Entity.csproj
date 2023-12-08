@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6574E9E9-6C2F-4BF9-8270-4F928BE32FC7}</ProjectGuid>
+    <ProjectGuid>{8C4E4104-F96C-4DF5-A6FA-A550CEF1E941}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Catalogo.Negocio</RootNamespace>
-    <AssemblyName>Catalogo.Negocio</AssemblyName>
+    <RootNamespace>Infraestructure.Entity</RootNamespace>
+    <AssemblyName>Infraestructure.Entity</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,19 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccesoADatos.cs" />
-    <Compile Include="ArticuloNegocio.cs" />
-    <Compile Include="CategoriaNegocio.cs" />
-    <Compile Include="IABML.cs" />
-    <Compile Include="ImagenNegocio.cs" />
-    <Compile Include="MarcaNegocio.cs" />
+    <Compile Include="Models\ArticuloEntity.cs" />
+    <Compile Include="Models\CategoriaEntity.cs" />
+    <Compile Include="Models\ImagenEntity.cs" />
+    <Compile Include="Models\MarcaEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Infraestructure.Entity\Infraestructure.Entity.csproj">
-      <Project>{8C4E4104-F96C-4DF5-A6FA-A550CEF1E941}</Project>
-      <Name>Infraestructure.Entity</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

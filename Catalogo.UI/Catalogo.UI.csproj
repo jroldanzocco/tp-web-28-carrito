@@ -166,10 +166,6 @@
       <Project>{835a2299-7d65-44c8-b1bf-31dc92cea588}</Project>
       <Name>Catalogo.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Catalogo.Dominio\Catalogo.Dominio.csproj">
-      <Project>{53794531-32B9-412A-B253-3BF5E9051D71}</Project>
-      <Name>Catalogo.Dominio</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Catalogo.Negocio\Catalogo.Negocio.csproj">
       <Project>{6574E9E9-6C2F-4BF9-8270-4F928BE32FC7}</Project>
       <Name>Catalogo.Negocio</Name>

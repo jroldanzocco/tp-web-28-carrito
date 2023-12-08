@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6574E9E9-6C2F-4BF9-8270-4F928BE32FC7}</ProjectGuid>
+    <ProjectGuid>{D5BBEEFF-7A06-432E-991D-FF9D680B2992}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Catalogo.Negocio</RootNamespace>
-    <AssemblyName>Catalogo.Negocio</AssemblyName>
+    <RootNamespace>Infraestructure.Core</RootNamespace>
+    <AssemblyName>Infraestructure.Core</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,17 +41,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccesoADatos.cs" />
-    <Compile Include="ArticuloNegocio.cs" />
-    <Compile Include="CategoriaNegocio.cs" />
-    <Compile Include="IABML.cs" />
-    <Compile Include="ImagenNegocio.cs" />
-    <Compile Include="MarcaNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\ArticuloRepository.cs" />
+    <Compile Include="Repository\CategoriaRepository.cs" />
+    <Compile Include="Repository\ImagenRepository.cs" />
+    <Compile Include="Repository\Interface\Actions\ICreateRepository.cs" />
+    <Compile Include="Repository\Interface\Actions\IReadRepository.cs" />
+    <Compile Include="Repository\Interface\Actions\IRemoveRepository.cs" />
+    <Compile Include="Repository\Interface\Actions\IUpdateRepository.cs" />
+    <Compile Include="Repository\Interface\IMarcaRepository.cs" />
+    <Compile Include="Repository\Interface\IImagenRepository.cs" />
+    <Compile Include="Repository\Interface\ICategoriaRepository.cs" />
+    <Compile Include="Repository\Interface\IArticuloRepository.cs" />
+    <Compile Include="Repository\MarcaRepository.cs" />
+    <Compile Include="Repository\Repository.cs" />
+    <Compile Include="UnitOfWork\Interface\IUnitOfWorkAdapter.cs" />
+    <Compile Include="UnitOfWork\Interface\IUnitOfWork.cs" />
+    <Compile Include="UnitOfWork\Interface\IUnitOfWorkRepository.cs" />
+    <Compile Include="UnitOfWork\UnitOfWork.cs" />
+    <Compile Include="UnitOfWork\UnitOfWorkAdapter.cs" />
+    <Compile Include="UnitOfWork\UnitOfWorkRepository.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\Catalogo.Common\Catalogo.Common.csproj">
+      <Project>{835A2299-7D65-44C8-B1BF-31DC92CEA588}</Project>
+      <Name>Catalogo.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Infraestructure.Entity\Infraestructure.Entity.csproj">
-      <Project>{8C4E4104-F96C-4DF5-A6FA-A550CEF1E941}</Project>
+      <Project>{8c4e4104-f96c-4df5-a6fa-a550cef1e941}</Project>
       <Name>Infraestructure.Entity</Name>
     </ProjectReference>
   </ItemGroup>
