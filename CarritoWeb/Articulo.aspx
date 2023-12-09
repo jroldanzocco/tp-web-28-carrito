@@ -12,7 +12,10 @@
                     <asp:TextBox runat="server" ID="txtCodigo" CssClass="form-control" MaxLength="50" />
                     <asp:RequiredFieldValidator ID="rfvCodigo" runat="server" ControlToValidate="txtCodigo"
                         ErrorMessage="El codigo es obligatorio" ForeColor="Red" ValidationGroup="agregar" Display="Dynamic"></asp:RequiredFieldValidator>
-                    <asp:Label runat="server" ID="lblCod" ForeColor="Red"></asp:Label>
+                    <asp:RegularExpressionValidator ID="revCodigo" runat="server" ControlToValidate="txtCodigo"
+                    ValidationExpression="^[a-zA-Z0-9]+$" ErrorMessage="Solo se permiten letras y números."
+                    ForeColor="Red" Display="Dynamic" ValidationGroup="agregar"/>
+                    <asp:Label runat="server" ID="lblCodigo" ForeColor="Red"></asp:Label>
                 </div>
                 <div class="mb-3">
                     <label for="txtNombre" class="form-label">Nombre</label>
@@ -80,7 +83,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <asp:Button runat="server" ID="btnCancelarModal" Text="Cancelar" OnClientClick="cerrarModal();" CssClass="btn btn-secondary" />
+                    <asp:Button runat="server" ID="btnCancelarModal" Text="Cancelar" OnClientClick="cerrarModal(); return false;" CssClass="btn btn-secondary" />
                     <asp:Button runat="server" ID="btnGuardarModal" Text="Guardar" OnClientClick="return guardarModal();" UseSubmitBehavior="false" OnClick="btnGuardarModal_Click" CssClass="btn btn-primary" ValidationGroup="agregarMarca agregarCategoria" />
                 </div>
             </div>
@@ -184,5 +187,6 @@
                 }
             }
         }
+        
     </script>
 </asp:Content>

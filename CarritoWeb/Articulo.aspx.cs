@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace CarritoWeb
 {
@@ -26,7 +27,11 @@ namespace CarritoWeb
             {
                 var marcas = _marcaServices.GetAll();
                 var categorias = _categoriaServices.GetAll();
-                foreach(var marca in marcas)
+
+                ddlMarcas.Items.Insert(0, new ListItem("--Selecciona una marca--"));
+                ddlCategorias.Items.Insert(0, new ListItem("--Selecciona una categoria--"));
+
+                foreach (var marca in marcas)
                 {
                     ddlMarcas.Items.Add(marca.Descripcion);
                 }
@@ -46,7 +51,8 @@ namespace CarritoWeb
                     txtNombre.Text = aux.Nombre;
                     txtDescripcion.Text = aux.Descripcion;
                     txtPrecio.Text = aux.Precio.ToString("0.00");
-
+                    ddlMarcas.SelectedValue = aux.Marca;
+                    ddlCategorias.SelectedValue = aux.Categoria;
                     lblTitulo.Text = "Editar Articulo";
                 }
                 else
@@ -60,13 +66,31 @@ namespace CarritoWeb
 
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
-            var auxArt = new ArticuloDto();
+            var userCode = txtCodigo.Text.ToLower();
+            var checkExistingCode = _articuloServices.GetAll().FirstOrDefault(x => x.Codigo.ToLower() == userCode);
 
-            auxArt.Nombre = txtNombre.Text.ToString();
-            auxArt.Codigo = txtCodigo.Text.ToString();
-            auxArt.Descripcion = txtDescripcion.Text.ToString();
+            if(checkExistingCode != null)
+            {
+                lblCodigo.Text = "El codigo ingresado ya existe, prueba otro";
+                return;
+            }
+            lblCodigo.Text = "";
+            var selectedMarca = ddlMarcas.SelectedValue.ToString().ToLower();
+            var selectedCategoria = ddlCategorias.SelectedValue.ToString().ToLower();
             decimal.TryParse(txtPrecio.Text, out decimal precio);
-            auxArt.Precio = precio;
+            var auxArt = new ArticuloDto
+            {
+                Nombre = txtNombre.Text.ToString(),
+                Codigo = txtCodigo.Text.ToString(),
+                Descripcion = txtDescripcion.Text.ToString(),
+                Precio = precio,
+                idMarca = _marcaServices.GetAll().FirstOrDefault(x => x.Descripcion.ToLower() == selectedMarca).Id,
+                idCategoria = _categoriaServices.GetAll().FirstOrDefault(x => x.Descripcion.ToLower() == selectedCategoria).Id,
+        };
+            
+           
+
+
 
            if(Validations.DataAnnotations(auxArt))
             {
@@ -85,7 +109,6 @@ namespace CarritoWeb
 
                 Response.Redirect("Home.aspx");
             }
-
         }
 
 
@@ -99,8 +122,10 @@ namespace CarritoWeb
 
             if(txtMarca.Text != "")
             {
-                var auxMarca = new MarcaDto();
-                auxMarca.Descripcion = txtMarca.Text;
+                var auxMarca = new MarcaDto
+                {
+                    Descripcion = txtMarca.Text
+                };
                 if (Validations.DataAnnotations(auxMarca))
                 {
                     var marcas = _marcaServices.GetAll();
@@ -118,8 +143,10 @@ namespace CarritoWeb
 
             if (txtCategoria.Text != "")
             {
-                var auxCategoria = new CategoriaDto();
-                auxCategoria.Descripcion = txtCategoria.Text;
+                var auxCategoria = new CategoriaDto
+                {
+                    Descripcion = txtCategoria.Text
+                };
                 if (Validations.DataAnnotations(auxCategoria))
                 {
                     var marcas = _marcaServices.GetAll();
