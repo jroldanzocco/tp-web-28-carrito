@@ -94,9 +94,20 @@ namespace CarritoWeb
             }
         }
 
+
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
+            Response.Redirect("Home.aspx");
+        }
 
+        protected void btnCancelarModal_Click(object sender, EventArgs e)
+        {
+        }
+
+        protected void btnGuardarModal_Click(object sender, EventArgs e)
+        {
+            txtCategoria.Text = "";
+            txtMarca.Text = "";
         }
     }
 }
