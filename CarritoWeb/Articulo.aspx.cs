@@ -1,9 +1,14 @@
-﻿using Catalogo.Dominio.DTO.Articulo;
+﻿using Catalogo.Common;
+using Catalogo.Dominio.DTO.Articulo;
+using Catalogo.Dominio.DTO.Categoria;
+using Catalogo.Dominio.DTO.Marca;
 using Catalogo.Dominio.Services;
 using Infraestructure.Core.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web.UI;
 
 namespace CarritoWeb
 {
@@ -63,19 +68,7 @@ namespace CarritoWeb
             decimal.TryParse(txtPrecio.Text, out decimal precio);
             auxArt.Precio = precio;
 
-            var context = new ValidationContext(auxArt, serviceProvider: null, items: null);
-            var results = new List<ValidationResult>();
-            var isValid = Validator.TryValidateObject(auxArt, context, results, true);
-
-            if(!isValid)
-            {
-                foreach(var resultvalidation in results)
-                {
-                    Response.Write(resultvalidation.ErrorMessage.ToString());
-                }
-                return;
-            }
-            else
+           if(Validations.DataAnnotations(auxArt))
             {
                 string id = Request.QueryString["id"];
                 if (id == null)
@@ -92,6 +85,7 @@ namespace CarritoWeb
 
                 Response.Redirect("Home.aspx");
             }
+
         }
 
 
@@ -103,6 +97,43 @@ namespace CarritoWeb
         {
             
 
+            if(txtMarca.Text != "")
+            {
+                var auxMarca = new MarcaDto();
+                auxMarca.Descripcion = txtMarca.Text;
+                if (Validations.DataAnnotations(auxMarca))
+                {
+                    var marcas = _marcaServices.GetAll();
+
+                    var checkMarcaExists = marcas.FirstOrDefault(x => x.Descripcion.ToLower().Trim() == txtMarca.Text.ToLower().Trim());
+
+                    if(checkMarcaExists == null)
+                    {
+                        _marcaServices.Insert(auxMarca);
+                    }
+                }
+            }
+
+            if (txtCategoria.Text != "")
+            {
+                var auxCategoria = new CategoriaDto();
+                auxCategoria.Descripcion = txtCategoria.Text;
+                if (Validations.DataAnnotations(auxCategoria))
+                {
+                    var marcas = _marcaServices.GetAll();
+
+                    var checkMarcaExists = marcas.FirstOrDefault(x => x.Descripcion.ToLower().Trim() == txtCategoria.Text.ToLower().Trim());
+
+                    if (checkMarcaExists == null)
+                    {
+                        _categoriaServices.Insert(auxCategoria);
+                    }
+                }
+
+            }
+
+            lblMarcaExistente.Text = "";
+            lblCategoriaExistente.Text = "";
 
             txtCategoria.Text = "";
             txtMarca.Text = "";
