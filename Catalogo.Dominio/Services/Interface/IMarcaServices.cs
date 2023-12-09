@@ -10,5 +10,6 @@ namespace Catalogo.Dominio.Services.Interface
     public interface IMarcaServices
     {
         List<MarcaDto> GetAll();
+        void Insert(AddMarcaDto marcaDto);
     }
 }

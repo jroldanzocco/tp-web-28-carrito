@@ -10,5 +10,6 @@ namespace Catalogo.Dominio.Services.Interface
     public interface ICategoriaServices
     {
         List<CategoriaDto> GetAll();
+        void Insert(AddCategoriaDto addCategoriaDto);
     }
 }

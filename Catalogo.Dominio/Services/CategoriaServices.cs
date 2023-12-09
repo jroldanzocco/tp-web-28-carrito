@@ -1,5 +1,6 @@
 ﻿using Catalogo.Dominio.DTO.Articulo;
 using Catalogo.Dominio.DTO.Categoria;
+using Catalogo.Dominio.DTO.Marca;
 using Catalogo.Dominio.Services.Interface;
 using Infraestructure.Core.UnitOfWork.Interface;
 using Infraestructure.Entity;
@@ -38,6 +39,21 @@ namespace Catalogo.Dominio.Services
                 }).ToList();
 
                 return categorias;
+            }
+        }
+
+        public void Insert(AddCategoriaDto addCategoriaDto)
+        {
+            using (var connection = _unitOfWork.Create())
+            {
+                CategoriaEntity categoria = new CategoriaEntity
+                {
+                    Descripcion = addCategoriaDto.Descripcion,
+                };
+
+                connection.Repositories.CategoriaRepository.Add(categoria);
+
+                connection.SaveChanges();
             }
         }
         #endregion

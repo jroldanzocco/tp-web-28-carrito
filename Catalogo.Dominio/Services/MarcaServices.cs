@@ -40,6 +40,21 @@ namespace Catalogo.Dominio.Services
                 return marcas;
             }
         }
+
+        public void Insert(AddMarcaDto marcaDto)
+        {
+            using (var connection = _unitOfWork.Create())
+            {
+                MarcaEntity marca = new MarcaEntity
+                {
+                    Descripcion = marcaDto.Descripcion,
+                };
+
+                connection.Repositories.MarcaRepository.Add(marca);
+
+                connection.SaveChanges();
+            }
+        }
         #endregion
     }
 }
