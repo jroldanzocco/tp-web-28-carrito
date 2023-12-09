@@ -42,16 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Articulo.cs" />
-    <Compile Include="Categoria.cs" />
     <Compile Include="DTO\Articulo\AddArticuloDto.cs" />
     <Compile Include="DTO\Articulo\ArticuloDto.cs" />
     <Compile Include="DTO\Categoria\AddCategoriaDto.cs" />
     <Compile Include="DTO\Categoria\CategoriaDto.cs" />
     <Compile Include="DTO\Marca\AddMarcaDto.cs" />
     <Compile Include="DTO\Marca\MarcaDto.cs" />
-    <Compile Include="Imagen.cs" />
-    <Compile Include="Marca.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ArticuloServices.cs" />
     <Compile Include="Services\CategoriaServices.cs" />

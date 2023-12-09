@@ -110,6 +110,8 @@ namespace CarritoWeb
                     if(checkMarcaExists == null)
                     {
                         _marcaServices.Insert(auxMarca);
+                        ddlMarcas.Items.Add(auxMarca.Descripcion);
+                        ddlMarcas.DataBind();
                     }
                 }
             }
@@ -127,6 +129,8 @@ namespace CarritoWeb
                     if (checkMarcaExists == null)
                     {
                         _categoriaServices.Insert(auxCategoria);
+                        ddlCategorias.Items.Add(auxCategoria.Descripcion);
+                        ddlCategorias.DataBind();
                     }
                 }
 
