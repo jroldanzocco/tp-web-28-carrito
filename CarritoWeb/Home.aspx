@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="CarritoWeb._Default" %>
+﻿<%@ Page Title="Home Page" MaintainScrollPositionOnPostBack="true" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="CarritoWeb._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -50,8 +50,7 @@
                                         <i class="fa fa-star star"></i>
                                         <i class="fa fa-star star"></i>
                                     </div>
-
-                                    <button type="button" class="btn bg-cart mt-3 mb-3"><i class="fa fa-cart-plus mr-2"></i>Add to cart</button>
+                                    <asp:Button ID="btnAgregarCarrito" Text="Agregar" OnClick="btnAgregarCarrito_Click" CommandArgument='<%# Eval("Id") %>' CssClass="btn bg-cart mt-3 mb-3" runat="server" />
                                     <div>
                                         <p class=" text-muted fw-bold"><%# Eval("Marca") %></p>
                                     </div>
@@ -81,5 +80,7 @@
         function nextSlide(index) {
             $('#carouselExample' + index).carousel('next');
         }
+        
+        
     </script>
 </asp:Content>

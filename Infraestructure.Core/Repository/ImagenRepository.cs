@@ -35,12 +35,12 @@ namespace Infraestructure.Core.Repository
             }
         }
 
-        public void Delete(int id)
+        public void Delete(int idArticulo)
         {
             try
             {
-                var command = CrearComando("DELETE FROM IMAGENES WHERE Id = @id");
-                command.Parameters.AddWithValue("@id", id);
+                var command = CrearComando("DELETE FROM IMAGENES WHERE IdArticulo = @idArticulo");
+                command.Parameters.AddWithValue("@idArticulo", idArticulo);
 
                 command.ExecuteNonQuery();
             }
@@ -123,12 +123,13 @@ namespace Infraestructure.Core.Repository
                         );
                     }
                 }
+                return listaImagenes;
             }
             catch (Exception)
             {
                 throw;
             }
-            return listaImagenes;
+            
         }
 
         public void Update(ImagenEntity entity)

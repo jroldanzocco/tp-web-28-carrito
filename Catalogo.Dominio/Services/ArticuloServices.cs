@@ -158,10 +158,19 @@ namespace Catalogo.Dominio.Services
                     Precio = articulo.Precio
                 };
 
-
                 connection.Repositories.ArticuloRepository.Update(art);
+                if(GetImages(articulo.Id).Count > 0)
+                   connection.Repositories.ImagenRepository.Delete(articulo.Id);
 
                 connection.SaveChanges();
+            }
+        }
+
+        public int GetIdByCodigo(string codigo)
+        {
+            using (var connection = _unitOfWork.Create())
+            {
+                return connection.Repositories.ArticuloRepository.GetAll().FirstOrDefault(x => x.Codigo == codigo).Id;
             }
         }
         #endregion

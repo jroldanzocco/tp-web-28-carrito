@@ -28,7 +28,7 @@ namespace CarritoWeb
 
         protected string GetImageUrl(object dataItem)
         {
-            string imageUrl = dataItem.ToString();
+            string imageUrl = dataItem?.ToString();
 
 
             if (string.IsNullOrEmpty(imageUrl) || !Uri.IsWellFormedUriString(imageUrl, UriKind.RelativeOrAbsolute))
@@ -37,6 +37,27 @@ namespace CarritoWeb
             }
 
             return imageUrl;
+        }
+
+        protected void btnAgregarCarrito_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            string articuloId = btn.CommandArgument;
+            int.TryParse(articuloId, out int ID);
+            ArticuloDto articulo = _articuloServices.GetById(ID);
+
+            List<ArticuloDto> carrito = Session["Carrito"] as List<ArticuloDto>;
+
+            if (carrito == null)
+            {
+                carrito = new List<ArticuloDto>();
+            }
+
+            carrito.Add(articulo);
+
+            Session["Carrito"] = carrito;
+
+            ((SiteMaster)Master).SetCartItemCount(carrito.Count);
         }
     }
 }

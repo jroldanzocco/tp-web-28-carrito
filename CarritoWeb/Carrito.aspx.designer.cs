@@ -11,34 +11,34 @@ namespace CarritoWeb
 {
 
 
-    public partial class SiteMaster
+    public partial class WebForm3
     {
 
         /// <summary>
-        /// UpdatePanel1 control.
+        /// btnLimpiarCarrito control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        protected global::System.Web.UI.WebControls.Button btnLimpiarCarrito;
 
         /// <summary>
-        /// lblUnidadesCarrito control.
+        /// repCarrito control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUnidadesCarrito;
+        protected global::System.Web.UI.WebControls.Repeater repCarrito;
 
         /// <summary>
-        /// MainContent control.
+        /// lblPrecioTotal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
+        protected global::System.Web.UI.WebControls.Label lblPrecioTotal;
     }
 }

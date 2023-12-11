@@ -55,5 +55,10 @@ namespace CarritoWeb
 
             Response.Redirect("Articulo.aspx?id=" + id);
         }
+
+        protected void btnAgregarCarrito_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

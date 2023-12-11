@@ -93,7 +93,7 @@ namespace Infraestructure.Core.Repository
             try
             {
                 var command = CrearComando("SELECT Id, Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio " +
-                                           "FROM articulos");
+                                           "FROM articulos ORDER BY Id DESC");
 
                 using (var lector = command.ExecuteReader())
                 {

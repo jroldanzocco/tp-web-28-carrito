@@ -6,27 +6,40 @@
             <div class="col-md-6 bg-light p-4 rounded">
                 <h2 class="text-center mb-4 font-weight-bold">
                     <asp:Label runat="server" ID="lblTitulo"></asp:Label></h2>
-
+                <div id="flex-container" class="d-flex">
+                <div id="txtBoxContainer" class="col-md-6">
                 <div class="mb-3">
                     <label for="txtCodigo" class="form-label">Código</label>
                     <asp:TextBox runat="server" ID="txtCodigo" CssClass="form-control" MaxLength="50" />
                     <asp:RequiredFieldValidator ID="rfvCodigo" runat="server" ControlToValidate="txtCodigo"
                         ErrorMessage="El codigo es obligatorio" ForeColor="Red" ValidationGroup="agregar" Display="Dynamic"></asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="revCodigo" runat="server" ControlToValidate="txtCodigo"
-                    ValidationExpression="^[a-zA-Z0-9]+$" ErrorMessage="Solo se permiten letras y números."
-                    ForeColor="Red" Display="Dynamic" ValidationGroup="agregar"/>
+                        ValidationExpression="^[a-zA-Z0-9]+$" ErrorMessage="Solo se permiten letras y números."
+                        ForeColor="Red" ValidationGroup="agregar" />
                     <asp:Label runat="server" ID="lblCodigo" ForeColor="Red"></asp:Label>
                 </div>
                 <div class="mb-3">
                     <label for="txtNombre" class="form-label">Nombre</label>
                     <asp:TextBox runat="server" ID="txtNombre" CssClass="form-control" MaxLength="50" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtNombre"
-                        ErrorMessage="El nombre es obligatorio" ForeColor="Red" ValidationGroup="agregar" Display="Dynamic"></asp:RequiredFieldValidator>
-                    <label runat="server" id="lblNombre" style="color: red;"></label>
+                        ErrorMessage="El nombre es obligatorio" ForeColor="Red" ValidationGroup="agregar"></asp:RequiredFieldValidator>
                 </div>
                 <div class="mb-3">
                     <label for="txtDescripcion" class="form-label" maxlength="150">Descripción</label>
                     <asp:TextBox runat="server" ID="txtDescripcion" CssClass="form-control" />
+                    <asp:RegularExpressionValidator ID="revCustom" runat="server"
+                        ControlToValidate="txtDescripcion" ValidationExpression="^[a-zA-Z0-9]+(?:[.,][a-zA-Z0-9]+)*$"
+                        ErrorMessage="Solo letras y numeros"
+                        ForeColor="Red" ValidationGroup="agregar" />
+                </div>
+                <div class="mb-3">
+                    <label for="txtUrlImagen" class="form-label">Imagen</label>
+                    <a href="#" onclick="mostrarModal('imagen'); return false;" style="text-decoration: none; color: green">Agregar Imagen</a>
+                    
+                    <asp:Button runat="server" ID="btnEliminarImagen" OnClientClick="return deleteImageAlert(this);" OnClick="btnEliminarImagen_Click" Text="Eliminar imagen" ForeColor="Red" />
+                    <asp:DropDownList runat="server" ID="ddlImagen" AutoPostBack="true" CssClass="form-select" OnSelectedIndexChanged="ddlImagen_SelectedIndexChanged"></asp:DropDownList>
+                    
+                    
                 </div>
                 <div class="mb-3">
                     <label for="txtMarca" class="form-label">Marca</label>
@@ -44,9 +57,13 @@
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPrecio"
                         ErrorMessage="El precio es obligatorio" ForeColor="Red" ValidationGroup="agregar" Display="Dynamic"></asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="revNumeros" runat="server" ControlToValidate="txtPrecio"
-                        ErrorMessage="El numero es invalido" ValidationExpression="^[0-9]+(\,[0-9]{1,2})?$" ForeColor="Red" ValidationGroup="agregar" Display="Dynamic"></asp:RegularExpressionValidator>
-                    <label runat="server" id="lblPrecio" style="color: red;"></label>
+                        ErrorMessage="El numero es invalido" ValidationExpression="^[0-9]+(\,[0-9]{1,2})?$" ForeColor="Red" ValidationGroup="agregar"></asp:RegularExpressionValidator>
                 </div>
+                    </div>
+                <div id="imagePreviewContainer" class="col-md-6 d-flex justify-content-center align-items-center">
+                    <asp:Image runat="server" ID="imagePreview" ImageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png" CssClass="img-fluid mt-2 h-auto" Width="250px"/>
+                </div>
+                    </div>
                 <div class="mb-3 text-center">
                     <asp:Button Text="Aceptar" ID="btnAceptar" CssClass="btn btn-primary me-2" OnClick="btnAceptar_Click" runat="server" ValidationGroup="agregar" />
                     <asp:Button Text="Cancelar" ID="btnCancelar" CssClass="btn btn-secondary me-2" runat="server" OnClick="btnCancelar_Click" />
@@ -56,17 +73,16 @@
     </div>
     <!-- Modal -->
     <div class="modal" tabindex="-1" role="dialog" id="miModal">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalTitulo"></h5>
-
                 </div>
                 <div class="modal-body">
 
                     <!-- Marca -->
                     <div id="marcaFields" style="display: none;">
-                        <label for="txtMarca" class="form-label">Campo Marca Específico</label>
+                        <label for="txtMarca" class="form-label">Marca</label>
                         <asp:TextBox ID="txtMarca" runat="server" CssClass="form-control" MaxLength="50" />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtMarca"
                             ErrorMessage="El nombre de marca es requerido" ForeColor="Red" ValidationGroup="agregarMarca" Display="Dynamic"></asp:RequiredFieldValidator>
@@ -75,16 +91,23 @@
 
                     <!-- Categoria -->
                     <div id="categoriaFields" style="display: none;">
-                        <label for="txtCategoria" class="form-label">Campo Categoría Específico</label>
+                        <label for="txtCategoria" class="form-label">Categoría</label>
                         <asp:TextBox ID="txtCategoria" runat="server" CssClass="form-control" MaxLength="50" />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtCategoria"
                             ErrorMessage="El nombre de categoria es requerido" ForeColor="Red" ValidationGroup="agregarCategoria" Display="Dynamic"></asp:RequiredFieldValidator>
                         <asp:Label runat="server" ID="lblCategoriaExistente" ForeColor="Red"></asp:Label>
                     </div>
+                    <!-- Imagen -->
+                    <div id="imagenFields" style="display: none;">
+                        <label for="txtUrlImagen" class="form-label">UrlImagen</label>
+                        <asp:TextBox ID="txtUrlImagen" runat="server" CssClass="form-control" MaxLength="1000" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtUrlImagen"
+                            ErrorMessage="El url de la imagen es requerido" ForeColor="Red" ValidationGroup="agregarImagen"></asp:RequiredFieldValidator>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <asp:Button runat="server" ID="btnCancelarModal" Text="Cancelar" OnClientClick="cerrarModal(); return false;" CssClass="btn btn-secondary" />
-                    <asp:Button runat="server" ID="btnGuardarModal" Text="Guardar" OnClientClick="return guardarModal();" UseSubmitBehavior="false" OnClick="btnGuardarModal_Click" CssClass="btn btn-primary" ValidationGroup="agregarMarca agregarCategoria" />
+                    <asp:Button runat="server" ID="btnGuardarModal" Text="Guardar" OnClientClick="return guardarModal();" UseSubmitBehavior="false" OnClick="btnGuardarModal_Click" CssClass="btn btn-primary" ValidationGroup="agregarImagen agregarMarca agregarCategoria" />
                 </div>
             </div>
         </div>
@@ -101,17 +124,31 @@
             if (tipoElemento === 'marca') {
                 $('#modalTitulo').text('Agregar Marca');
                 $('#lblElemento').text('Marca');
-                $('#marcaFields').show();
                 $('#categoriaFields').hide();
-                seccionMarcaActiva = true;
+                $('#imagenFields').hide();
+                $('#marcaFields').show();
+                seccionImagenActiva = false;
                 seccionCategoriaActiva = false;
+                seccionMarcaActiva = true;
             } else if (tipoElemento === 'categoria') {
                 $('#modalTitulo').text('Agregar Categoría');
                 $('#lblElemento').text('Categoría');
                 $('#marcaFields').hide();
+                $('#imagenFields').hide();
                 $('#categoriaFields').show();
                 seccionMarcaActiva = false;
+                seccionImagenActiva = false;
                 seccionCategoriaActiva = true;
+            }
+            else if (tipoElemento === 'imagen') {
+                $('#modalTitulo').text('Agregar Imagen');
+                $('#lblElemento').text('Imagen');
+                $('#marcaFields').hide();
+                $('#categoriaFields').hide();
+                $('#imagenFields').show();
+                seccionMarcaActiva = false;
+                seccionCategoriaActiva = false;
+                seccionImagenActiva = true;
             }
 
             $('#miModal').modal('show');
@@ -143,6 +180,8 @@
                 return 'agregarMarca';
             } else if (seccionCategoriaActiva) {
                 return 'agregarCategoria';
+            } else if (seccionImagenActiva) {
+                return 'agregarImagen';
             } else {
                 return '';
             }
@@ -151,19 +190,20 @@
         function limpiarCampos() {
             $('#<%=txtCategoria.ClientID%>').val('');
             $('#<%=txtMarca.ClientID%>').val('');
+            $('#<%=txtUrlImagen.ClientID%>').val('');
         }
         function validarMarcaExistente() {
             var marcaIngresada = $('#<%=txtMarca.ClientID%>').val().trim().toLowerCase();
-            var ddlMarcas = $('#<%=ddlMarcas.ClientID%>'); 
-            var lblMarcaExistente = $('#<%=lblMarcaExistente.ClientID%>'); 
+            var ddlMarcas = $('#<%=ddlMarcas.ClientID%>');
+            var lblMarcaExistente = $('#<%=lblMarcaExistente.ClientID%>');
 
             lblMarcaExistente.text('');
 
-           
+
             for (var i = 0; i < ddlMarcas[0].options.length; i++) {
                 var marcaExistente = ddlMarcas[0].options[i].text.trim().toLowerCase();
 
-               
+
                 if (marcaExistente === marcaIngresada) {
                     lblMarcaExistente.text('La marca ya existe');
                     return;
@@ -187,6 +227,33 @@
                 }
             }
         }
-        
+
+        var delalertok = false
+        function deleteImageAlert(btn) {
+            if (delalertok) {
+                delalertok = false;
+                return true;
+            }
+
+            Swal.fire({
+                title: "Estas seguro?",
+                text: "¿Deseas eliminar la imagen?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Si, borrar!",
+            })
+                .then(willDelete => {
+                    if (willDelete.isConfirmed) {
+                        delalertok = true;
+                        btn.click();
+                    }
+                });
+
+            return false;
+        }
+
+
     </script>
 </asp:Content>

@@ -1,6 +1,7 @@
 ﻿using Catalogo.Common;
 using Catalogo.Dominio.DTO.Articulo;
 using Catalogo.Dominio.DTO.Categoria;
+using Catalogo.Dominio.DTO.Imagen;
 using Catalogo.Dominio.DTO.Marca;
 using Catalogo.Dominio.Services;
 using Infraestructure.Core.UnitOfWork;
@@ -10,6 +11,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using static System.Net.WebRequestMethods;
 
 namespace CarritoWeb
 {
@@ -17,11 +19,13 @@ namespace CarritoWeb
     {
         private MarcaServices _marcaServices;
         private CategoriaServices _categoriaServices;
+        private ImagenServices _imagenServices;
         private ArticuloServices _articuloServices;
         protected void Page_Load(object sender, EventArgs e)
         {
             _marcaServices = new MarcaServices(new UnitOfWork());
             _categoriaServices = new CategoriaServices(new UnitOfWork());
+            _imagenServices = new ImagenServices(new UnitOfWork());
             _articuloServices = new ArticuloServices(new UnitOfWork());
             if (!IsPostBack)
             {
@@ -39,6 +43,7 @@ namespace CarritoWeb
                 {
                     ddlCategorias.Items.Add(categoria.Descripcion);
                 }
+                imagePreview.ImageUrl = "";
 
                 string id = Request.QueryString["id"] != null ? Request.QueryString["id"] : "";
 
@@ -54,6 +59,14 @@ namespace CarritoWeb
                     ddlMarcas.SelectedValue = aux.Marca;
                     ddlCategorias.SelectedValue = aux.Categoria;
                     lblTitulo.Text = "Editar Articulo";
+                    foreach(var imagen in aux.Imagen)
+                    {
+                        ddlImagen.Items.Add(imagen);
+                    }
+                    if(ddlImagen.Items.Count > 0)
+                    {
+                        imagePreview.ImageUrl = aux.Imagen[0];
+                    }
                 }
                 else
                 {
@@ -69,15 +82,18 @@ namespace CarritoWeb
             var userCode = txtCodigo.Text.ToLower();
             var checkExistingCode = _articuloServices.GetAll().FirstOrDefault(x => x.Codigo.ToLower() == userCode);
 
-            if(checkExistingCode != null)
-            {
-                lblCodigo.Text = "El codigo ingresado ya existe, prueba otro";
-                return;
-            }
             lblCodigo.Text = "";
             var selectedMarca = ddlMarcas.SelectedValue.ToString().ToLower();
             var selectedCategoria = ddlCategorias.SelectedValue.ToString().ToLower();
             decimal.TryParse(txtPrecio.Text, out decimal precio);
+
+            List<string> imagenes = new List<string>();
+            foreach(ListItem item in ddlImagen.Items)
+            {
+                if(item.Text != "")
+                    imagenes.Add(item.Text);
+            }
+
             var auxArt = new ArticuloDto
             {
                 Nombre = txtNombre.Text.ToString(),
@@ -86,27 +102,36 @@ namespace CarritoWeb
                 Precio = precio,
                 idMarca = _marcaServices.GetAll().FirstOrDefault(x => x.Descripcion.ToLower() == selectedMarca).Id,
                 idCategoria = _categoriaServices.GetAll().FirstOrDefault(x => x.Descripcion.ToLower() == selectedCategoria).Id,
+                Imagen = imagenes,
         };
-            
-           
 
+            var addImagen = new AddImagenDto
+            {
+                ImagenUrl = imagenes
+            };
 
-
-           if(Validations.DataAnnotations(auxArt))
+            if (Validations.DataAnnotations(auxArt))
             {
                 string id = Request.QueryString["id"];
                 if (id == null)
                 {
+                    if (checkExistingCode != null)
+                    {
+                        lblCodigo.Text = "El codigo ingresado ya existe, prueba otro";
+                        return;
+                    }
                     _articuloServices.Insert(auxArt);
+                    addImagen.IdArticulo = _articuloServices.GetIdByCodigo(auxArt.Codigo);
+                    _imagenServices.Insert(addImagen);
                 }
                 else
                 {
                     int.TryParse(id, out int idVal);
                     auxArt.Id = idVal;
                     _articuloServices.Update(auxArt);
+                    addImagen.IdArticulo = auxArt.Id;
+                    _imagenServices.Insert(addImagen);
                 }
-
-
                 Response.Redirect("Home.aspx");
             }
         }
@@ -163,11 +188,34 @@ namespace CarritoWeb
 
             }
 
+            if(txtUrlImagen.Text != "")
+            {
+                ddlImagen.Items.Add(txtUrlImagen.Text);
+                ddlImagen.SelectedIndex = ddlImagen.Items.Count - 1;
+                imagePreview.ImageUrl = ddlImagen.Items[ddlImagen.Items.Count - 1].Text;
+            }
+
             lblMarcaExistente.Text = "";
             lblCategoriaExistente.Text = "";
 
             txtCategoria.Text = "";
             txtMarca.Text = "";
+            txtUrlImagen.Text = "";
+
+        }
+
+        protected void ddlImagen_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            imagePreview.ImageUrl = ddlImagen.SelectedValue;
+        }
+
+        protected void btnEliminarImagen_Click(object sender, EventArgs e)
+        {
+            if(ddlImagen.SelectedValue != "")
+                ddlImagen.Items.Remove(ddlImagen.SelectedValue);
+
+            if (ddlImagen.Items.Count == 0)
+                imagePreview.ImageUrl = "";
         }
     }
 }

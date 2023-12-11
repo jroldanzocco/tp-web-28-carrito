@@ -16,7 +16,12 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link rel="stylesheet" href="~/css/homeStyles.css" />
     <script src="Scripts/jquery-3.4.1.slim.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+         <style>
+             body{
+                 padding-top : 50px;
+             }
+         </style>   
 </head>
 <body>
     <form runat="server">
@@ -38,21 +43,32 @@
                 <%--Site Scripts--%>
             </Scripts>
         </asp:ScriptManager>
-
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-light fixed-top">
             <div class="container">
-                <a class="navbar-brand" runat="server" href="~/Home.aspx">Application name</a>
+                <a class="navbar-brand text-dark" runat="server" href="~/Home.aspx">Application name</a>
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Home.aspx">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Articulo.aspx">Agregar Articulo</a></li>
+                        <li class="nav-item"><a class="nav-link  text-dark" runat="server" href="~/Home.aspx">Home</a></li>
+                        <li class="nav-item"><a class="nav-link  text-dark" runat="server" href="~/Articulo.aspx">Agregar Articulo</a></li>
                     </ul>
                 </div>
             </div>
+            <div class="d-flex m-lg-auto">
+                        <a class="btn btn-outline-dark" href="Carrito.aspx">
+                            <i class="bi-cart-fill me-1"></i>
+                            Carrito
+                            <asp:UpdatePanel runat="server" ID="UpdatePanel1" UpdateMode="Conditional">
+    <ContentTemplate>
+                            <span class="badge bg-dark text-white ms-1 rounded-pill"><asp:Label Text="0" ID="lblUnidadesCarrito" runat="server"></asp:Label></span>
+        </ContentTemplate>
+</asp:UpdatePanel>
+                        </a>
+                    </div>
         </nav>
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">

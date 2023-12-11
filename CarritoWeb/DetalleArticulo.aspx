@@ -41,9 +41,9 @@
                             <p class="lead"><%# Eval("Descripcion") %></p>
                             <div class="d-flex">
                                 <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                                <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                                <asp:Button ID="btnAgregarCarrito" OnClick="btnAgregarCarrito_Click"  CommandArgument='<%# Eval("Id") %>' CssClass="btn btn-outline-dark flex-shrink-0" runat="server" />
                                     <i class="bi-cart-fill me-1"></i>
-                                    Add to cart
+                                    Agregar al carrito
                                 </button>
                             </div>
                         </div>
