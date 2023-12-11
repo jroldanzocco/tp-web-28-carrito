@@ -128,6 +128,7 @@
     <Content Include="Global.asax" />
     <Content Include="Popup\Categoria.aspx" />
     <Content Include="Popup\Marca.aspx" />
+    <Content Include="Scripts\articulo.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -160,6 +161,7 @@
     <Content Include="Articulo.aspx" />
     <Content Include="Carrito.aspx" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\detalleArticulo.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />

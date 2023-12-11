@@ -62,40 +62,5 @@
         </ItemTemplate>
     </asp:Repeater>
         
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8v+czu0U+0a9L/l8YBjz5CsMlq8iNf5eL7oFq1jTjI92NniRS5GfOe9Bbi" crossorigin="anonymous"></script>
-    <script>
-        function prevSlide() {
-            $('#myCarousel').carousel('prev');
-        }
-
-        function nextSlide() {
-            $('#myCarousel').carousel('next');
-        }
-
-        var delalertok = false
-        function deleteArticuloAlert(btn) {
-            if (delalertok) {
-                delalertok = false;
-                return true;
-            }
-
-            Swal.fire({
-                title: "Estas seguro?",
-                text: "¿Deseas eliminar el articulo?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#d33",
-                cancelButtonColor: "#3085d6",
-                confirmButtonText: "Si, borrar!",
-            })
-                .then(willDelete => {
-                    if (willDelete.isConfirmed) {
-                        delalertok = true;
-                        btn.click();
-                    }
-                });
-
-            return false;
-        }
-    </script>
+    <script src="Scripts/detalleArticulo.js"></script>
 </asp:Content>
