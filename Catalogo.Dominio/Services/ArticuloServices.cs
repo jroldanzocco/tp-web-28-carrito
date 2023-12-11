@@ -173,6 +173,16 @@ namespace Catalogo.Dominio.Services
                 return connection.Repositories.ArticuloRepository.GetAll().FirstOrDefault(x => x.Codigo == codigo).Id;
             }
         }
+
+        public void Delete(int id)
+        {
+            using (var connection = _unitOfWork.Create())
+            {
+                connection.Repositories.ArticuloRepository.Delete(id);
+
+                connection.SaveChanges();
+            }
+        }
         #endregion
     }
 }

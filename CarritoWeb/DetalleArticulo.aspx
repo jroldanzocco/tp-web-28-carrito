@@ -1,13 +1,24 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="DetalleArticulo.aspx.cs" Inherits="CarritoWeb.WebForm1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    
+    <style>
+        .custom-button {
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+    }
+
+    .custom-button:hover {
+        background-color: darkorange;
+        color: white;
+    }
+    </style>
     <!-- Product section-->
     <asp:Repeater ID="repArticulo" runat="server">
         <ItemTemplate>
             <section class="py-5">
                 <div class="container px-4 px-lg-5 my-5">
-                    <button class="btn btn-danger float-end m-2">Eliminar</button>
+                    <asp:Button runat="server" CssClass="btn btn-danger float-end m-2" Text="Eliminar" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" ID="btnEliminarArticulo" OnClientClick="return deleteArticuloAlert(this)" OnClick="btnEliminarArticulo_Click"/>
                     <asp:Button runat="server" CssClass="btn btn-secondary float-end mt-2" Text="Editar" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" ID="btnEditarArticulo" OnClick="btnEditarArticulo_Click"/>
                     <div class="container px-4 px-lg-5 my-5 bg-white p-4 rounded shadow-sm">
                     <div class="row gx-4 gx-lg-5 align-items-center">
@@ -40,12 +51,9 @@
                             </div>
                             <p class="lead"><%# Eval("Descripcion") %></p>
                             <div class="d-flex">
-                                <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                                <asp:Button ID="btnAgregarCarrito" OnClick="btnAgregarCarrito_Click"  CommandArgument='<%# Eval("Id") %>' CssClass="btn btn-outline-dark flex-shrink-0" runat="server" />
-                                    <i class="bi-cart-fill me-1"></i>
-                                    Agregar al carrito
-                                </button>
-                            </div>
+                            
+                           <i class="bi-cart-fill me-1"> <asp:Button runat="server" ID="btnAgregarCarrito" CommandArgument='<%# Eval("Id") %>' CommandName="ArticuloId" OnClick="btnAgregarCarrito_Click1" CssClass="custom-button btn btn-outline-dark flex-shrink-0 w-100" Text="Agregar al carrito" /></i>
+                                
                         </div>
                     </div>
                         </div>
@@ -62,6 +70,32 @@
 
         function nextSlide() {
             $('#myCarousel').carousel('next');
+        }
+
+        var delalertok = false
+        function deleteArticuloAlert(btn) {
+            if (delalertok) {
+                delalertok = false;
+                return true;
+            }
+
+            Swal.fire({
+                title: "Estas seguro?",
+                text: "¿Deseas eliminar el articulo?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Si, borrar!",
+            })
+                .then(willDelete => {
+                    if (willDelete.isConfirmed) {
+                        delalertok = true;
+                        btn.click();
+                    }
+                });
+
+            return false;
         }
     </script>
 </asp:Content>

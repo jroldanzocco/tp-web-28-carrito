@@ -1,4 +1,5 @@
-﻿using Catalogo.Common;
+﻿using CarritoWeb.Popup;
+using Catalogo.Common;
 using Catalogo.Dominio.DTO.Articulo;
 using Catalogo.Dominio.DTO.Categoria;
 using Catalogo.Dominio.DTO.Imagen;
@@ -93,15 +94,14 @@ namespace CarritoWeb
                 if(item.Text != "")
                     imagenes.Add(item.Text);
             }
-
+            
             var auxArt = new ArticuloDto
             {
                 Nombre = txtNombre.Text.ToString(),
                 Codigo = txtCodigo.Text.ToString(),
                 Descripcion = txtDescripcion.Text.ToString(),
                 Precio = precio,
-                idMarca = _marcaServices.GetAll().FirstOrDefault(x => x.Descripcion.ToLower() == selectedMarca).Id,
-                idCategoria = _categoriaServices.GetAll().FirstOrDefault(x => x.Descripcion.ToLower() == selectedCategoria).Id,
+                
                 Imagen = imagenes,
         };
 
@@ -110,9 +110,19 @@ namespace CarritoWeb
                 ImagenUrl = imagenes
             };
 
-            if (Validations.DataAnnotations(auxArt))
+            var validarMarca = ddlMarcas.SelectedIndex == 0;
+            var validarCategoria = ddlCategorias.SelectedIndex == 0;
+
+            lblMarca.Text = validarMarca ? "Debe elegir una marca" : "";
+            lblCategoria.Text = validarCategoria ? "Debe elegir una categoria" : "";
+
+            if (Validations.DataAnnotations(auxArt) && !validarMarca && !validarCategoria)
             {
+                auxArt.idMarca = _marcaServices.GetAll().FirstOrDefault(x => x.Descripcion.ToLower() == selectedMarca).Id;
+                auxArt.idCategoria = _categoriaServices.GetAll().FirstOrDefault(x => x.Descripcion.ToLower() == selectedCategoria).Id;
+
                 string id = Request.QueryString["id"];
+                int.TryParse(id, out int idVal);
                 if (id == null)
                 {
                     if (checkExistingCode != null)
@@ -126,16 +136,42 @@ namespace CarritoWeb
                 }
                 else
                 {
-                    int.TryParse(id, out int idVal);
+                    
                     auxArt.Id = idVal;
                     _articuloServices.Update(auxArt);
                     addImagen.IdArticulo = auxArt.Id;
                     _imagenServices.Insert(addImagen);
+
+                    editarCarrito(auxArt);
                 }
-                Response.Redirect("Home.aspx");
+                Response.Redirect($"DetalleArticulo?id={idVal}");
             }
         }
 
+        private void editarCarrito(ArticuloDto artEditado)
+        {
+
+            List<ArticuloDto> carrito = Session["Carrito"] as List<ArticuloDto>;
+
+            if (carrito == null)
+            {
+                carrito = new List<ArticuloDto>();
+            }
+
+            ArticuloDto articuloAEditar = carrito.FirstOrDefault(x => x.Id == artEditado.Id);
+
+            if (articuloAEditar != null)
+            {
+                artEditado.Cantidad = articuloAEditar.Cantidad;
+                carrito.Remove(articuloAEditar);
+                carrito.Add(artEditado);
+                foreach (var item in carrito)
+                {
+                    item.PrecioTotal = item.Precio * Convert.ToDecimal(item.Cantidad);
+                }
+
+            }
+        }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {

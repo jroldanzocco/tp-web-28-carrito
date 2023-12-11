@@ -4,7 +4,7 @@
     <!-- Shopping cart table -->
     <div class="card">
         <div class="card-header">
-            <h2>Shopping Cart</h2>
+            <h2>Carrito de compra</h2>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -16,19 +16,19 @@
                     <th class="text-right py-3 px-4" style="width: 100px;">Precio</th>
                     <th class="text-center py-3 px-4" style="width: 120px;">Cantidad</th>
                     <th class="text-right py-3 px-4" style="width: 100px;">Total</th>
-                      <th class="text-center align-middle py-3 px-0" style="width: 40px;"><asp:Button ID="btnLimpiarCarrito" Text="x" OnClick="btnLimpiarCarrito_Click" CssClass="shop-tooltip float-none text-light" runat="server" /></th>
+                      <th class="text-center align-middle py-3 px-0" style="width: 40px;"><asp:Button ID="btnLimpiarCarrito" Text="x" ToolTip="Vaciar carrito" OnClick="btnLimpiarCarrito_Click" CssClass="shop-tooltip float-none text-light" runat="server" /></th>
               
                   </tr>
                 </thead>
                 <tbody>
-        <asp:Repeater runat="server" ID="repCarrito">
+        <asp:Repeater runat="server" ID="repCarrito" OnItemDataBound="repCarrito_ItemDataBound">
             <ItemTemplate>
                   <tr>
                     <td class="p-4">
                       <div class="media align-items-center">
                           <asp:Image ID="imgImagen" runat="server" CssClass="d-block ui-w-40 ui-bordered mr-4" Width="200px" Height="250px" ImageUrl='<%# GetFirstImageUrl(Container.DataItem) %>' AlternateText="ERROR AL CARGAR IMAGEN" />
                         <div class="media-body">
-                          <a href="#" class="d-block text-dark"><%# Eval("Nombre") %></a>
+                          <a class="d-block text-dark"><%# Eval("Nombre") %></a>
                           <small>
                             <span class="text-muted">Marca: </span> <%# Eval("Marca") %>
                             <span class="text-muted">Envio desde: </span> Argentina
@@ -37,9 +37,9 @@
                       </div>
                     </td>
                     <td class="text-right font-weight-semibold align-middle p-4">$<%# Eval("Precio") %></td>
-                    <td class="align-middle p-4"><asp:TextBox runat="server" ID="txtCantidad" CssClass="form-control text-center" OnTextChanged="txtCantidad_TextChanged"></asp:TextBox></td>
-                    <td class="text-right font-weight-semibold align-middle p-4">$115.1</td>
-                    <td class="text-center align-middle px-0"><asp:Button ID="btnEliminarArticulo" BorderColor="Transparent" BorderStyle="None" Text="x" OnClick="btnEliminarArticulo_Click" CommandArgument='<%# Eval("Id") %>' CssClass="shop-tooltip close float-none text-danger" runat="server" /></td>
+                    <td class="align-middle p-4"><asp:TextBox runat="server" ReadOnly="true" ID="txtCantidadArticulos" CssClass="form-control text-center" /></td>
+                    <td class="text-right font-weight-semibold align-middle p-4"><asp:Label ID="lblParcial" runat="server"></asp:Label></td>
+                    <td class="text-center align-middle px-0"><asp:Button ID="btnEliminarArticulo" BorderColor="Transparent" ToolTip="Quitar del carrito" BorderStyle="None" Text="x" OnClick="btnEliminarArticulo_Click" CommandArgument='<%# Eval("Id") %>' CssClass="shop-tooltip close float-none text-danger" runat="server" /></td>
                   </tr>
                </ItemTemplate>
                     </asp:Repeater>

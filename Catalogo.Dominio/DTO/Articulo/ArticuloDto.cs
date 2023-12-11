@@ -11,5 +11,8 @@ namespace Catalogo.Dominio.DTO.Articulo
         public int Id { get; set; }
         public string Marca { get; set; }
         public string Categoria { get; set; }
+
+        public int Cantidad { get; set; } = 0;
+        public decimal PrecioTotal { get; set; }
     }
 }

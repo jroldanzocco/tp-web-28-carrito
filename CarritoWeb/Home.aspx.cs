@@ -45,19 +45,37 @@ namespace CarritoWeb
             string articuloId = btn.CommandArgument;
             int.TryParse(articuloId, out int ID);
             ArticuloDto articulo = _articuloServices.GetById(ID);
+            int cantidadArticulos = 0;
 
             List<ArticuloDto> carrito = Session["Carrito"] as List<ArticuloDto>;
 
-            if (carrito == null)
+            if(carrito == null)
             {
                 carrito = new List<ArticuloDto>();
             }
 
-            carrito.Add(articulo);
+            ArticuloDto articuloEnCarrito = carrito.FirstOrDefault(x => x.Id == articulo.Id);
+
+            if (articuloEnCarrito != null)
+            {
+                articuloEnCarrito.Cantidad++;
+            }
+            else
+            {
+                articulo.Cantidad = 1;
+                carrito.Add(articulo);
+            }
+
+            foreach (var item in carrito)
+            {
+                item.PrecioTotal = item.Precio * Convert.ToDecimal(item.Cantidad);
+                cantidadArticulos += item.Cantidad;
+            }
 
             Session["Carrito"] = carrito;
 
-            ((SiteMaster)Master).SetCartItemCount(carrito.Count);
+
+            ((SiteMaster)Master).SetCartItemCount(cantidadArticulos);
         }
     }
 }

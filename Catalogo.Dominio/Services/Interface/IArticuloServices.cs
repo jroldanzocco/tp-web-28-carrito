@@ -13,7 +13,7 @@ namespace Catalogo.Dominio.Services.Interface
         ArticuloDto GetById(int id);
         void Insert(ArticuloDto articulo);
         void Update(ArticuloDto articulo);
-
+        void Delete(int id);
         int GetIdByCodigo(string codigo);
     }
 }

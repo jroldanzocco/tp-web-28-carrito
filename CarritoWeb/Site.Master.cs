@@ -30,7 +30,12 @@ namespace CarritoWeb
             
             if (artCarrito != null)
             {
-                return artCarrito.Count;
+                var cantidad = 0;
+                foreach(var  articulo in artCarrito)
+                {
+                    cantidad += articulo.Cantidad;
+                }
+                return cantidad;
             }
 
             return 0;

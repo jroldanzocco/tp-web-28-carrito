@@ -87,15 +87,6 @@ namespace CarritoWeb
         protected global::System.Web.UI.WebControls.TextBox txtDescripcion;
 
         /// <summary>
-        /// revCustom control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator revCustom;
-
-        /// <summary>
         /// btnEliminarImagen control.
         /// </summary>
         /// <remarks>
@@ -123,6 +114,15 @@ namespace CarritoWeb
         protected global::System.Web.UI.WebControls.DropDownList ddlMarcas;
 
         /// <summary>
+        /// lblMarca control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMarca;
+
+        /// <summary>
         /// ddlCategorias control.
         /// </summary>
         /// <remarks>
@@ -130,6 +130,15 @@ namespace CarritoWeb
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCategorias;
+
+        /// <summary>
+        /// lblCategoria control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCategoria;
 
         /// <summary>
         /// txtPrecio control.

@@ -21,10 +21,15 @@ namespace CarritoWeb
                 {
                     repCarrito.DataSource = artCarrito;
                     repCarrito.DataBind();
+
+                    foreach(var articulo in artCarrito)
+                    {
+                       
+                    }
                     
                     if(artCarrito.Count > 0)
                     {
-                        decimal precioTotal = artCarrito.Sum(x => x.Precio);
+                        decimal precioTotal = artCarrito.Sum(x => x.PrecioTotal);
                         lblPrecioTotal.Text = $"${precioTotal.ToString("0.00")}";
                     }
 
@@ -38,23 +43,20 @@ namespace CarritoWeb
 
         protected string GetFirstImageUrl(object dataItem)
         {
-            // Asumiendo que tu objeto de datos tiene una propiedad "ListaImagenes" que es una lista de URL
             var listaImagenes = DataBinder.Eval(dataItem, "Imagen") as List<string>;
 
-            // Asegurarse de que la lista no sea nula y tenga al menos una imagen
             if (listaImagenes != null && listaImagenes.Count > 0)
             {
-                // Devolver la URL de la primera imagen
                 return listaImagenes[0];
             }
 
-            // Devolver una URL predeterminada o en blanco según tus necesidades
             return DefaultImage.ImagePath;
         }
 
         protected void btnLimpiarCarrito_Click(object sender, EventArgs e)
         {
-
+            Session.Remove("Carrito");
+            Response.Redirect("Carrito.aspx");
         }
 
         protected void btnEliminarArticulo_Click(object sender, EventArgs e)
@@ -82,9 +84,29 @@ namespace CarritoWeb
             
         }
 
-        protected void txtCantidad_TextChanged(object sender, EventArgs e)
+        protected void repCarrito_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
+            if ((e.Item.ItemType == ListItemType.Item) || (e.Item.ItemType == ListItemType.AlternatingItem))
+            {
 
+                TextBox txtCantidadArticulos = e.Item.FindControl("txtCantidadArticulos") as TextBox;
+                Label labelParcial = e.Item.FindControl("lblParcial") as Label;
+                ArticuloDto articulo = e.Item.DataItem as ArticuloDto;
+
+                if (txtCantidadArticulos != null && articulo != null)
+                {
+                    txtCantidadArticulos.Text = articulo.Cantidad.ToString();
+
+                    int.TryParse(txtCantidadArticulos.Text, out int cantidad);
+                    decimal suma = 0;
+                    if(cantidad > 0)
+                    {
+                        suma = Convert.ToDecimal(cantidad) * articulo.Precio;
+                    }
+                    labelParcial.Text = suma.ToString("0.00");
+                }
+                
+            }
         }
     }
 }

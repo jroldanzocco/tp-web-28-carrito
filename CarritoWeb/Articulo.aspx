@@ -25,12 +25,9 @@
                         ErrorMessage="El nombre es obligatorio" ForeColor="Red" ValidationGroup="agregar"></asp:RequiredFieldValidator>
                 </div>
                 <div class="mb-3">
-                    <label for="txtDescripcion" class="form-label" maxlength="150">Descripción</label>
-                    <asp:TextBox runat="server" ID="txtDescripcion" CssClass="form-control" />
-                    <asp:RegularExpressionValidator ID="revCustom" runat="server"
-                        ControlToValidate="txtDescripcion" ValidationExpression="^[a-zA-Z0-9]+(?:[.,][a-zA-Z0-9]+)*$"
-                        ErrorMessage="Solo letras y numeros"
-                        ForeColor="Red" ValidationGroup="agregar" />
+                    <label for="txtDescripcion" class="form-label">Descripción</label>
+                    <asp:TextBox runat="server" ID="txtDescripcion" MaxLength="150" CssClass="form-control" />
+                   
                 </div>
                 <div class="mb-3">
                     <label for="txtUrlImagen" class="form-label">Imagen</label>
@@ -45,11 +42,13 @@
                     <label for="txtMarca" class="form-label">Marca</label>
                     <a href="#" onclick="mostrarModal('marca'); return false;" style="text-decoration: none; color: green">Agregar Marca</a>
                     <asp:DropDownList runat="server" ID="ddlMarcas" CssClass="form-select"></asp:DropDownList>
+                    <asp:Label ID="lblMarca" ForeColor="red" runat="server"></asp:Label>
                 </div>
                 <div class="mb-3">
                     <label for="txtCategoria" class="form-label">Categoría</label>
                     <a href="#" onclick="mostrarModal('categoria'); return false;" style="text-decoration: none; color: green">Agregar Categoria</a>
                     <asp:DropDownList runat="server" ID="ddlCategorias" CssClass="form-select"></asp:DropDownList>
+                    <asp:Label ID="lblCategoria" ForeColor="red" runat="server"></asp:Label>
                 </div>
                 <div class="mb-3">
                     <label for="txtPrecio" class="form-label">Precio</label>
